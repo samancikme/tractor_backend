@@ -153,16 +153,18 @@ function createApp(options = {}) {
   const app = express();
   app.disable('x-powered-by');
 
-  // ---- Umumiy sarlavhalar ----
+  // ---- CORS va umumiy sarlavhalar ----
   app.use((req, res, next) => {
     res.set({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Device-ID, X-Uptime-Ms',
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'no-referrer',
-      'X-Frame-Options': 'DENY',
-      'Content-Security-Policy':
-        "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; " +
-        "connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
     });
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(204);
+    }
     next();
   });
 
