@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>ESP32-CAM monitoring</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top-title">
+      <h1>ESP32-CAM monitoring</h1>
+      <p class="note">Bu video emas: rasmlar taxminan har 5 soniyada yangilanadi.</p>
+    </div>
+    <div class="device-picker">
+      <label for="device-select">Qurilma</label>
+      <select id="device-select" disabled>
+        <option>Yuklanmoqda…</option>
+      </select>
+    </div>
+  </header>
+
+  <noscript>
+    <p class="banner banner-error">Bu sahifa ishlashi uchun JavaScript yoqilgan bo'lishi kerak.</p>
+  </noscript>
+
+  <main>
+    <div id="banner" class="banner" role="status" aria-live="polite" hidden></div>
+
+    <section class="viewer" aria-label="Oxirgi rasm">
+      <div class="frame">
+        <img id="main-image" alt="Qurilmadan olingan oxirgi rasm" hidden>
+        <p id="placeholder" class="placeholder">Yuklanmoqda…</p>
+      </div>
+      <div class="actions">
+        <button id="zoom-btn" class="btn" type="button" disabled>Kattalashtirish</button>
+        <a id="download-link" class="btn is-disabled" role="link" aria-disabled="true">Yuklab olish</a>
+      </div>
+    </section>
+
+    <section class="info" aria-label="Rasm haqida ma'lumot">
+      <dl class="info-grid">
+        <div class="info-item">
+          <dt>Holat</dt>
+          <dd><span id="status-pill" class="pill pill-idle">Yuklanmoqda…</span></dd>
+        </div>
+        <div class="info-item">
+          <dt>Oxirgi qabul qilingan vaqt</dt>
+          <dd id="info-received">—</dd>
+        </div>
+        <div class="info-item">
+          <dt>Rasm yoshi</dt>
+          <dd id="info-age">—</dd>
+        </div>
+        <div class="info-item">
+          <dt>Rasm hajmi</dt>
+          <dd id="info-size">—</dd>
+        </div>
+        <div class="info-item">
+          <dt>Rasm o'lchami</dt>
+          <dd id="info-dims">—</dd>
+        </div>
+        <div class="info-item">
+          <dt>Qurilma ishlagan vaqt</dt>
+          <dd id="info-uptime">—</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="gallery-section" aria-label="So'nggi rasmlar">
+      <h2>So'nggi rasmlar</h2>
+      <p id="gallery-empty" class="muted">Hali rasm kelmagan.</p>
+      <ul id="gallery" class="gallery"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>
+      Rasmlar serverning RAM xotirasida saqlanadi: har bir qurilma uchun oxirgi
+      <span id="limit-count">10</span> ta rasm, jami <span id="limit-mb">40</span> MB gacha.
+      Server qayta ishga tushsa yoki bepul instansiya uyquga ketib, qayta uyg'onsa, saqlangan rasmlar yo'qoladi.
+    </p>
+  </footer>
+
+  <dialog id="lightbox" aria-label="Rasmni kattalashtirib ko'rish">
+    <div class="lb-bar">
+      <span id="lb-caption" class="lb-caption"></span>
+      <span class="lb-buttons">
+        <button id="lb-prev" class="btn btn-small" type="button" aria-label="Oldingi (yangiroq) rasm">←</button>
+        <span id="lb-position" class="lb-position"></span>
+        <button id="lb-next" class="btn btn-small" type="button" aria-label="Keyingi (eskiroq) rasm">→</button>
+        <a id="lb-download" class="btn btn-small">Yuklab olish</a>
+        <button id="lb-close" class="btn btn-small" type="button">Yopish</button>
+      </span>
+    </div>
+    <div class="lb-stage">
+      <img id="lb-image" class="lb-image" alt="Kattalashtirilgan rasm" title="Bosib 100% / moslashtirilgan ko'rinishni almashtiring">
+    </div>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

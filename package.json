@@ -1,0 +1,21 @@
+{
+  "name": "esp32-cam-monitor",
+  "version": "1.0.0",
+  "description": "ESP32-CAM rasmlarini qabul qiluvchi va ko'rsatuvchi kichik Node.js server (rasmlar RAMda saqlanadi)",
+  "main": "server.js",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "mongodb": "^7.7.0",
+    "sharp": "^0.35.5"
+  }
+}

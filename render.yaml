@@ -1,0 +1,16 @@
+# Render Blueprint. Spetsifikatsiya: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: esp32-cam-monitor # onrender.com subdomeni shu nomdan olinadi; band bo'lsa Render qo'shimcha qo'shadi
+    runtime: node
+    plan: free
+    region: frankfurt # Oregon (standart) o'rniga O'zbekistonga yaqinroq; yaratilgandan keyin o'zgartirib bo'lmaydi
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: API_TOKEN
+        sync: false # Blueprint birinchi marta yaratilganda Render qiymatni so'raydi; GitHub'ga yozilmaydi
+      - key: MONGODB_URI
+        sync: false # MongoDB Atlas ulanish manzili (ixtiyoriy)
+
